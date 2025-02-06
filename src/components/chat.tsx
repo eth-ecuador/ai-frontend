@@ -9,7 +9,7 @@ export const Chat = () => {
   });
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] bg-gray-50 shadow-lg rounded-lg max-w-[600px] w-full mx-auto">
+    <div className="flex flex-col w-full h-full bg-gray-50 shadow-lg rounded-lg max-w-[600px] mx-auto">
       <div className="flex flex-col flex-1 overflow-y-auto p-4 bg-white border-b border-gray-300 rounded-t-xl custom-scrollbar overflow-x-hidden">
         {messages.length ? (
           messages.map((message, i) => (

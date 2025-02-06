@@ -1,7 +1,12 @@
-import React from 'react'
+import Chat from "@/components/chat";
+import React from "react";
 
-export default function Chat() {
+export default function ChatPage() {
   return (
-    <div>Chat</div>
-  )
+    <div className="h-full flex justify-center items-center">
+      <div className="w-[40rem] h-[40rem]">
+        <Chat></Chat>
+      </div>
+    </div>
+  );
 }
