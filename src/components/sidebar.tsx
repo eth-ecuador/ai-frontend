@@ -11,14 +11,14 @@ export default function LeftSidebar() {
 
   const navItems = [
     {
-      title: "Train",
+      title: "Agents",
       icon: Bot,
-      href: "/train",
+      href: "/dashboard/agents",
     },
     {
       title: "Chat",
       icon: MessageCircleMore,
-      href: "/chat",
+      href: "/dashboard/chat",
     },
   ];
 
