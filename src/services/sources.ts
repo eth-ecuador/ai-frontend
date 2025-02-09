@@ -1,10 +1,19 @@
-export interface URLSourceFormData {
+import axios from "axios";
+
+interface URLSourceFormData {
   url: string;
+  agentId: string;
 }
 
-export const postSource = async (data: URLSourceFormData) => {
+const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:8000';
+
+export const postDocument = async (data: URLSourceFormData) => {
   const trimmedUrl = data.url.trim();
-  if (!trimmedUrl) throw new Error("Please enter a valid URL");
+  const agentId = data.agentId;
+
+  if (!trimmedUrl) {
+    throw new Error("Please enter a valid URL");
+  }
 
   try {
     new URL(trimmedUrl);
@@ -12,15 +21,48 @@ export const postSource = async (data: URLSourceFormData) => {
     throw new Error("Please enter a valid URL");
   }
 
-  /*
-  const response = await fetch("/api/upload-source", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "url", content: trimmedUrl }),
-  });
+  try {
+    const response = await axios.post(
+      `/stores/urls`,
+      {
+        urls: [trimmedUrl],
+        user_id: agentId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  if (!response.ok) throw new Error("Failed to upload source");
-  */
-  console.log(trimmedUrl);
-  return { message: "Source added successfully!", ok: true };
+    console.log(response.data);
+
+    return { response: response.data };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to upload source"
+      );
+    }
+    throw new Error("Failed to upload source");
+  }
+};
+
+export interface Source {
+  id: string;
+  url: string;
+  source: string;
+  type: string;
+}
+
+export const getSourcesByAgentId = async (agentId: string): Promise<Source[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/stores/docs?agent_id=${agentId}`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Failed to fetch sources: ${error.message}`);
+    }
+    throw error;
+  }
 };

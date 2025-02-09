@@ -9,7 +9,7 @@ export default async function AgentPage({
 }) {
   const { id } = await params;
 
-  const agent = getAgentById(id);
+  const agent = await getAgentById(id);
 
   if (!agent) {
     return (

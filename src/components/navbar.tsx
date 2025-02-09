@@ -10,9 +10,8 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <header className="flex sticky top-0 z-10 border-b border-gray-800 bg-black/70 backdrop-blur-xl w-full h-16 px-4">
+    <header className="flex sticky top-0 z-10 border-b bg-blue-950 w-full h-16 px-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center px-4">
-        <div>Logo</div>
         <nav className="flex space-x-4">
           
         </nav>
@@ -21,7 +20,7 @@ export default function Navbar() {
             <DropdownMenuTrigger asChild>
               <Avatar className="h-9 w-9">
                 <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-                <AvatarFallback>JP</AvatarFallback>
+                <AvatarFallback>AP</AvatarFallback>
                 <span className="sr-only">Toggle user menu</span>
               </Avatar>
             </DropdownMenuTrigger>

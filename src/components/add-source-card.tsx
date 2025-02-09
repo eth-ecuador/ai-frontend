@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Dumbbell, Loader2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -22,45 +22,53 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { postSource } from "@/services/sources";
+import { postDocument } from "@/services/sources";
 import { toast } from "@/hooks/use-toast";
 
 const urlSchema = z.object({
-  url: z.string().url({ message: "Please enter a valid URL. (e.g., https://example.com)" }),
+  url: z
+    .string()
+    .url({ message: "Please enter a valid URL. (e.g., https://example.com)" }),
 });
 
 type URLSourceFormData = z.infer<typeof urlSchema>;
 
-export function AddSourceCard() {
+export function AddSourceCard({ agentId }: { agentId: string }) {
   const form = useForm<URLSourceFormData>({
     resolver: zodResolver(urlSchema),
     defaultValues: { url: "" },
   });
 
   const mutation = useMutation({
-    mutationFn: postSource,
-    onSuccess: (data) => {
+    mutationFn: (data: URLSourceFormData) =>
+      postDocument({
+        ...data,
+        agentId,
+      }),
+    onSuccess: () => {
       form.reset();
       toast({
         variant: "success",
         title: "Source added successfully!",
-        description: data.message,
       });
     },
-    onError: (error) => {
+    onError: () => {
+      console.error("Failed to add source");
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: error.message,
       });
     },
   });
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md bg-blue-50/80">
       <CardHeader>
-        <CardTitle>Add Source</CardTitle>
-        <CardDescription>Upload a source by providing a URL.</CardDescription>
+        <CardTitle className="flex gap-4 justify-center items-center">
+          <Dumbbell className="h-4 w-4" />
+          <p>Add Source</p>
+        </CardTitle>
+        <CardDescription className="text-center">Upload a source by providing a URL.</CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-6">

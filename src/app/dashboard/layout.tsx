@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </aside>
           <div className="w-full flex flex-col">
             <Navbar />
-            <main className="flex-1 overflow-auto bg-slate-300">{children}</main>
+            <main className="flex-1 overflow-auto bg-white">{children}</main>
           </div>
         </div>
       </div>

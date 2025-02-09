@@ -12,13 +12,9 @@ export default async function AgentChatPage({
   const agent = await getAgentById(id);
 
   return (
-    <div className="h-full flex flex-col justify-center items-center">
-      {agent?.id}
-      {agent?.name}
-      {agent?.description}
-      {agent?.index_name}
-      <div className="w-[40rem] h-[40rem]">
-        <Chat></Chat>
+    <div className="h-screen w-full flex justify-center items-center">
+      <div className="w-full max-w-[40rem] h-full max-h-[40rem] flex justify-center items-center">
+        <Chat />
       </div>
     </div>
   );

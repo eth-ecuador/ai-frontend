@@ -77,9 +77,12 @@ export default function AgentCard({ agent }: { agent: Agent }) {
           <Button
             variant="outline"
             className="flex-1 flex items-center gap-2 hover:bg-primary/5"
+            asChild
           >
-            <Dumbbell className="h-4 w-4" />
-            Train
+             <Link href={`/dashboard/agents/${id}/train`}>
+              <Dumbbell className="h-4 w-4" />
+              Train
+            </Link>
           </Button>
           <Button className="flex-1 flex items-center gap-2" asChild>
             <Link href={`/dashboard/agents/${id}/chat`}>
