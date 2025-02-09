@@ -8,7 +8,7 @@ import React from "react";
 export default async function AgentPage({
   params,
 }: {
-  params: { id: string };
+    params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
 
@@ -17,6 +17,14 @@ export default async function AgentPage({
   const { name, description, image_url } = agent;
 
   const sources = await getSourcesByAgentId(id);
+
+  if(!agent) {
+    return (
+      <div className="h-full w-full flex flex-col items-center justify-center">
+        <div>Agent not found</div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full w-full flex flex-col items-center justify-start p-8">

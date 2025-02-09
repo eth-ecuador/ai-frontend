@@ -5,11 +5,19 @@ import React from "react";
 export default async function AgentChatPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
 
   const agent = await getAgentById(id);
+
+  if(!agent) {
+    return (
+      <div className="h-full w-full flex flex-col items-center justify-center">
+        <div>Agent not found</div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
